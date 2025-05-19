@@ -16,8 +16,19 @@
 }
 
 .description {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    font-size: 18px;
+  background-color: #fff; /* solid white background */
+  padding: 1rem;
+  border-radius: 8px;
+  max-height: 300px; /* limit height for scrolling */
+  overflow-y: auto;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* On larger screens, allow taller */
+@media (min-width: 768px) {
+  .description {
+    max-height: none;
+    overflow-y: visible;
+  }
 }
