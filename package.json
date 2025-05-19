@@ -1,0 +1,42 @@
+{
+  "name": "dh-reigns",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "@types/classnames": "^2.2.9",
+    "classnames": "^2.2.6",
+    "gh-pages": "^2.1.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "dev": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.27.1",
+    "@types/node": "^20.17.48",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.7",
+    "eslint": "^8.57.1",
+    "react-scripts": "^5.0.1",
+    "typescript": "^4.9.5"
+  }
+}

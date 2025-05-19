@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.point {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8px;
+}
+
+.pointInner {
+    margin-bottom: 10px;
+    background: #ffbb00;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.low {
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+}
+
+.high {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+}
+.volume {
+    position: relative;
+    width: 45px;
+    height: 90px;
+    background: #fff4d6;
+    box-sizing: border-box;
+}
+
+.failed .volume {
+    border: 2px solid #ff0000;
+    background: #ffe1e1;
+}
+
+.innerVolume {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #ffbb00;
+    transition: height 1s;
+}
+
+.failed .innerVolume {
+    background: #ff0000;
+}
+
+.icon {
+    position: absolute;
+    left: 50%;
+    bottom: -15px;
+    width: 100px;
+    margin-left: -50px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.failed .icon {
+    color: #ff0000;
+}
