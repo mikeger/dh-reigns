@@ -16,13 +16,14 @@
 }
 
 .description {
-  background-color: #fff; /* solid white background */
+  background-color: #000; /* solid black background */
   padding: 1rem;
   border-radius: 8px;
   max-height: 300px; /* limit height for scrolling */
   overflow-y: auto;
   word-wrap: break-word;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(255, 0, 0, 0.3);
+  color: #ffcccc; /* light red text */
 }
 
 /* On larger screens, allow taller */
