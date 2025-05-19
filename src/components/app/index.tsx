@@ -41,10 +41,10 @@ export const App = () => {
             {state.lose && <GameOver scores={state.scores} dispatch={dispatch} />}
             <details className={styles.description} style={{ marginTop: '1rem' }}>
                 <summary>Game&nbsp;Intro&nbsp;—&nbsp;tap&nbsp;to&nbsp;expand</summary>
-                <p><strong>Welcome to <em>Command &amp; Courier: Engineering Lead Edition</em></strong></p>
+                <p><strong>Welcome to <em>Command &amp; Courier: Lead Edition</em></strong></p>
 
                 <p>
-                  You’re the freshly minted <strong>Engineering Lead</strong> for Delivery Hero’s Deliveries tribe—the
+                  You’re the freshly minted <strong>Lead</strong> for Delivery Hero’s Deliveries tribe—the
                   brains behind the Rider app that keeps couriers rolling and meals arriving hot. Every left‑or‑right
                   swipe drops you into another split‑second decision:
                 </p>

@@ -24,7 +24,7 @@ export const navigationFeature: Suite = {
       },
       nextCard: {
         skipSteps: 0,
-        character: 'Igor, Rider Representative',
+        character: 'Stan, Rider Representative',
         description:
           'Riders say turn‑by‑turn is laggy and drains battery. Double down on fixes?',
         yes: {

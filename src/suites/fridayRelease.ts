@@ -2,7 +2,7 @@ import { Suite } from '../types';
 
 export const fridayRelease: Suite = {
   startCard: {
-    character: 'Lena, Analyst',
+    character: 'Jina, Analyst',
     description:
       'We’re ready to ship the new feature, but it’s Friday. Release anyway?',
     skipSteps: 0,
@@ -13,7 +13,7 @@ export const fridayRelease: Suite = {
 
       nextCard: {
         skipSteps: 0,
-        character: 'Lena, Analyst',
+        character: 'Jina, Analyst',
         description: 'Disaster! We’ve hit a production bug!',
 
         yes: {
