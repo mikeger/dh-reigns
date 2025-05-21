@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/dh-reigns/static/css/main.dfa7f33f.css",
-    "main.js": "/dh-reigns/static/js/main.c73391a0.js",
+    "main.css": "/dh-reigns/static/css/main.009f08e1.css",
+    "main.js": "/dh-reigns/static/js/main.01cb6a44.js",
     "index.html": "/dh-reigns/index.html",
-    "main.dfa7f33f.css.map": "/dh-reigns/static/css/main.dfa7f33f.css.map",
-    "main.c73391a0.js.map": "/dh-reigns/static/js/main.c73391a0.js.map"
+    "main.009f08e1.css.map": "/dh-reigns/static/css/main.009f08e1.css.map",
+    "main.01cb6a44.js.map": "/dh-reigns/static/js/main.01cb6a44.js.map"
   },
   "entrypoints": [
-    "static/css/main.dfa7f33f.css",
-    "static/js/main.c73391a0.js"
+    "static/css/main.009f08e1.css",
+    "static/js/main.01cb6a44.js"
   ]
 }
