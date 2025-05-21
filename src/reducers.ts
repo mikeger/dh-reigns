@@ -61,13 +61,13 @@ const effect = (state: State, effect: CardChoice): State => {
     const scores = effect.scores ? newScores(state.scores, effect.scores) : state.scores;
 
     return {
-        ...state,
-        seed,
-        scores,
-        deck,
-        answer: undefined,
-        lose: checkLose(scores),
-        day: state.day + 1,
+      ...state,
+      seed,
+      scores,
+      deck,
+      answer: undefined,
+      lose: checkLose(scores),
+      day: state.deck[0].card.tutorial ? state.day : state.day + 1,
     };
 };
 

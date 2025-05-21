@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import styles from './index.module.css';
 import { reducer } from '../../reducers';
 import { createState } from '../../state';
@@ -20,6 +20,7 @@ export const App = () => {
     }
 
     const [state, dispatch] = useReducer(reducer, initialState);
+    const [showIntro, setShowIntro] = useState(state.day === 1 && !state.answer);
 
     if (localStorage) {
         localStorage.setItem('reigns', JSON.stringify(state));
@@ -27,43 +28,59 @@ export const App = () => {
 
     const card = state.deck[0].card;
 
+
     return (
         <div className={styles.container}>
             <ScoresHeader
-                scores={state.scores}
-                effect={state.answer && card[state.answer].scores}
+              scores={state.scores}
+              effect={state.answer && card[state.answer].scores}
             />
-            {state.lose === false && <CardComponent card={card} dispatch={dispatch} />}
+
+            {showIntro ? (
+              <div className={styles.introOverlay}>
+                <details className={styles.description} open>
+                  <summary style={{ display: 'none' }} />
+                  <div style={{ height: '100vh', overflowY: 'auto' }}>
+                    <p><strong>Welcome to <em>Command &amp; Courier: Lead Edition</em></strong></p>
+                    <p>You’re the freshly minted <strong>Lead</strong> for Delivery Hero’s Deliveries tribe...</p>
+                    <ul>
+                      <li><strong>Budget 💰</strong> — stretch your dev funds...</li>
+                      <li><strong>Rider Happiness 😊</strong> — code choices echo on the street...</li>
+                      <li><strong>App Quality 🛠️</strong> — crush bugs, tame latency...</li>
+                      <li><strong>Delivery Time ⏱️</strong> — optimize every line of code...</li>
+                    </ul>
+                    <p><em>Swipe wisely—your code is riding shotgun on every order.</em></p>
+                  </div>
+                </details>
+                {!(state.day === 1 && !state.answer) ? (
+                  <div>
+                    <button className={styles.closeButton} onClick={() => setShowIntro(false)}>Close</button>
+                    <button
+                      className={styles.restartButton}
+                      onClick={() => {
+                        localStorage.removeItem('reigns');
+                        window.location.reload();
+                      }}
+                    >
+                      Start Again
+                    </button>
+                  </div>
+                ) : (
+                  <button className={styles.closeButton} onClick={() => setShowIntro(false)}>Let's go!</button>
+                )}
+              </div>
+            ) : (
+              state.lose === false && <CardComponent card={card} dispatch={dispatch} />
+            )}
+
             <div className={styles.days}>
                 <div className={styles.dayCounter}>{state.day}</div>
                 <div>day</div>
             </div>
-            {state.lose && <GameOver scores={state.scores} dispatch={dispatch} />}
-            <details className={styles.description} style={{ marginTop: '1rem' }}>
-                <summary>Game&nbsp;Intro&nbsp;—&nbsp;tap&nbsp;to&nbsp;expand</summary>
-                <p><strong>Welcome to <em>Command &amp; Courier: Lead Edition</em></strong></p>
 
-                <p>
-                  You’re the freshly minted <strong>Lead</strong> for Delivery Hero’s Deliveries tribe—the
-                  brains behind the Rider app that keeps couriers rolling and meals arriving hot. Every left‑or‑right
-                  swipe drops you into another split‑second decision:
-                </p>
+            <button className={styles.reopenButton} onClick={() => setShowIntro(true)}>Show Intro</button>
 
-                <ul>
-                  <li><strong>Budget 💰</strong> — stretch your dev funds across tech debt, cloud bills, and shiny new features.</li>
-                  <li><strong>Rider Happiness 😊</strong> — code choices echo on the street; a glitchy app means angry riders.</li>
-                  <li><strong>App Quality 🛠️</strong> — crush bugs, tame latency, and keep crash‑free sessions above 99 %.</li>
-                  <li><strong>Delivery Time ⏱️</strong> — optimize every line of code so orders land on doorsteps in record time.</li>
-                </ul>
-
-                <p>
-                  Ship refactors or chase features? Automate tests or pray in production? Incentivize riders or cut costs?
-                  Keep all four meters healthy and you’ll cement your legacy as the tech wizard who powered lightning‑fast logistics.
-                  Let any one tank, and the whole delivery network grinds to a halt.
-                </p>
-
-                <p><em>Swipe wisely—your code is riding shotgun on every order.</em></p>
-            </details>
+            {state.lose && <GameOver scores={state.scores} dispatch={dispatch} day={state.day} />}
         </div>
     );
 };

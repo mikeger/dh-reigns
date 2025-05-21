@@ -18,6 +18,7 @@ export interface Card {
     yes: CardChoice;
     no: CardChoice;
     skipSteps: number;
+    tutorial?: boolean; // if true, this card doesn't count toward game days
 }
 
 export type ScoresEffect = Partial<Scores>;

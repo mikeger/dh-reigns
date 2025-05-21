@@ -2,6 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Card, Dispatch } from '../../types';
 import styles from './index.module.css';
 
+const emojiAvatars = [
+  '🧑‍💻', '👩‍💻', '👨‍💻', '🦸‍♀️', '🦸‍♂️', '👩‍🔧', '👨‍🔧',
+  '🚴‍♀️', '🚴‍♂️', '🛵', '🛴', '📱', '🖥️', '⚙️', '💡',
+];
+
+function hashString(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash << 5) - hash + str.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+}
+
+function getEmojiAvatar(characterName: string): string {
+  const index = hashString(characterName) % emojiAvatars.length;
+  return emojiAvatars[index];
+}
+
 const choiceThreshold = 30;
 
 interface PrevCard {
@@ -16,7 +35,6 @@ const PrevCardComponent = ({ data: { card, x, y, angle } }: { data: PrevCard }) 
     const { description, character } = card;
 
     useEffect(() => {
-        // TODO: переделать на что-то более нормальное, чем setTimeout
         const timeout = setTimeout(() => {
             setPosition({
                 x: position.x + Math.sign(position.x) * 500,
@@ -48,6 +66,13 @@ const CardContent = ({ card, x }: { card: Card; x: number }) => {
 
     return (
         <div className={styles.content}>
+            <div
+              style={{ fontSize: 48, marginBottom: 8 }}
+              aria-label="avatar"
+              role="img"
+            >
+              {card.character ? getEmojiAvatar(card.character) : '❓'}
+            </div>
             <div className={styles.description}>{card.description}</div>
             {choice && card[choice].description.length > 0 && (
                 <div className={styles.choice}>{card[choice].description}</div>
@@ -75,6 +100,8 @@ export const CardComponent = ({ card, dispatch }: CardComponentProps) => {
         start: [0, 0],
         move: [0, 0],
     });
+
+    const [showTutorial, setShowTutorial] = useState(true);
 
     const { x, y, angle } = getCardPosition(state.move[0]);
 
@@ -113,6 +140,7 @@ export const CardComponent = ({ card, dispatch }: CardComponentProps) => {
         });
 
         if (choice) {
+            setShowTutorial(false);
             dispatch({ type: choice });
         }
     };
@@ -156,8 +184,67 @@ export const CardComponent = ({ card, dispatch }: CardComponentProps) => {
         };
     });
 
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            if (!state.down && !state.prevCard) {
+                setShowTutorial(true);
+            }
+        }, 6000);
+        return () => clearTimeout(timeout);
+    }, [state.down, state.move]);
+
     return (
         <div className={styles.container}>
+            {showTutorial && (
+              <>
+                <div
+                  style={{
+                    position: 'absolute',
+                    left: '10px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#ffcccc',
+                    fontSize: '24px',
+                    zIndex: 10,
+                  }}
+                >
+                  ←
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    right: '10px',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    color: '#ffcccc',
+                    fontSize: '24px',
+                    zIndex: 10,
+                  }}
+                >
+                  →
+                </div>
+              </>
+            )}
+            {getChoice(state.move[0]) && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: getChoice(state.move[0]) === 'no' ? '10px' : 'auto',
+                  right: getChoice(state.move[0]) === 'yes' ? '10px' : 'auto',
+                  transform: 'translateY(-50%)',
+                  backgroundColor: '#ff4d4d',
+                  color: '#000',
+                  padding: '10px 15px',
+                  fontWeight: 'bold',
+                  borderRadius: '5px',
+                  zIndex: 10,
+                  opacity: Math.min(Math.abs(state.move[0]) / 100, 1),
+                }}
+              >
+                {card[getChoice(state.move[0])!].description}
+              </div>
+            )}
             {state.prevCard && (
                 <PrevCardComponent
                     data={state.prevCard}
@@ -165,7 +252,6 @@ export const CardComponent = ({ card, dispatch }: CardComponentProps) => {
                 />
             )}
             <div
-                // TODO: key переделать на uuid
                 key={card.description.slice(0, 10)}
                 className={styles.movePart}
                 onMouseDown={onMouseDown}
@@ -195,9 +281,6 @@ function getChoice(x: number): 'yes' | 'no' | undefined {
 
 function getCardPosition(x: number) {
     const R = 500;
-    // x^2 + y^2 = R^2
-    // y = \/r^2 - x^2
-    // x = sinA * R
     const angle = Math.asin(x / R);
     const y = R - Math.sqrt(R * R - x * x);
     return {
