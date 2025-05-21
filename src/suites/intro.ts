@@ -26,6 +26,7 @@ const explainMetricsCard3: Card = {
   yes: {
     description: 'Understood!',
     scores: {},
+    nextCard: startRealGameCard
   },
   no: {
     description: 'Explain again',
@@ -122,7 +123,7 @@ const promotionCard: Card = {
   tutorial: true,
   skipSteps: 0,
   character: 'System',
-  description: 'Congratulations! In this game you have been promoted to Lead of the Deliveries tribe.',
+  description: 'In this game you have been promoted to Lead of the Deliveries tribe.',
   yes: {
     description: 'Continue',
     scores: {},
