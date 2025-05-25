@@ -7,7 +7,7 @@ const startRealGameCard: Card = {
   tutorial: true,
   skipSteps: 0,
   character: 'System',
-  description: 'Good luck leading Deliveries! Swipe left to start the real game.',
+  description: 'Good luck leading Deliveries! Swipe to start the real game.',
   yes: {
     description: 'Start!',
     scores: {},
@@ -155,7 +155,7 @@ const welcomeCard: Card = {
   tutorial: true,
   skipSteps: 0,
   character: 'System',
-  description: 'Welcome to Tech & Product Bazaar 2025! Swipe left to begin your journey.',
+  description: 'Welcome to Tech & Product Bazaar 2025! Swipe to begin your journey.',
   no: {
     description: 'Sure',
     scores: {},

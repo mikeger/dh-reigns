@@ -60,6 +60,14 @@ const effect = (state: State, effect: CardChoice): State => {
 
     const scores = effect.scores ? newScores(state.scores, effect.scores) : state.scores;
 
+    const determineTier = (day: number): string | undefined => {
+      if (day >= 100) return 'Courier Command Champion';
+      if (day >= 60) return 'Logistics Innovator';
+      if (day >= 40) return 'Tribe Stabilizer';
+      if (day >= 15) return 'Delivery Tech Enthusiast';
+      return undefined;
+    };
+
     return {
       ...state,
       seed,
@@ -68,6 +76,7 @@ const effect = (state: State, effect: CardChoice): State => {
       answer: undefined,
       lose: checkLose(scores),
       day: state.deck[0].card.tutorial ? state.day : state.day + 1,
+      tier: determineTier(state.deck[0].card.tutorial ? state.day : state.day + 1),
     };
 };
 
@@ -101,10 +110,10 @@ const checkLose = (scores: Scores): boolean => {
     scores.budget === 0 ||
     scores.budget === 100 ||
     scores.riderHappiness === 0 ||
-    scores.riderHappiness === 100 ||
+    // scores.riderHappiness === 100 ||
     scores.appQuality === 0 ||
-    scores.appQuality === 100 ||
-    scores.deliveryTime === 0 ||
+    // scores.appQuality === 100 ||
+    // scores.deliveryTime === 0 ||
     scores.deliveryTime === 100
   );
 };

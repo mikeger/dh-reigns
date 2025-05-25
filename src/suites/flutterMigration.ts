@@ -2,7 +2,7 @@ import { Suite } from '../types';
 
 export const flutterMigration: Suite = {
   startCard: {
-    character: 'Ben, CTO',
+    character: 'The CTO',
     description:
       'Can we migrate the Rider app to Flutter to save engineering costs?',
     skipSteps: 0,

@@ -10,7 +10,6 @@ export const productionIncident: Suite = {
     yes: {
       description: 'Rollback immediately',
       scores: {
-        budget: -10,
         riderHappiness: +5,
         appQuality: +5,
       },
@@ -22,7 +21,6 @@ export const productionIncident: Suite = {
         yes: {
           description: 'Deploy hotfix now',
           scores: {
-            budget: -15,
             riderHappiness: -10,
             appQuality: +10,
             deliveryTime: +5,
@@ -43,6 +41,7 @@ export const productionIncident: Suite = {
       scores: {
         riderHappiness: -20,
         appQuality: -15,
+        deliveryTime: -5,
       },
       nextCard: {
         skipSteps: 0,
@@ -53,14 +52,14 @@ export const productionIncident: Suite = {
           description: 'Negotiate with riders',
           scores: {
             riderHappiness: +10,
-            budget: -10,
+            budget: -5,
             deliveryTime: -5,
           },
         },
         no: {
           description: 'Escalate to headquarters',
           scores: {
-            budget: -15,
+            budget: -10,
             riderHappiness: -15,
             appQuality: -10,
           },

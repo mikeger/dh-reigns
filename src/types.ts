@@ -39,6 +39,7 @@ export interface State {
     lose: boolean;
     answer?: 'yes' | 'no';
     day: number;
+    tier?: string;
 }
 
 export interface YesAction {

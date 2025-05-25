@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useReducer, useState, useEffect } from 'react';
 import styles from './index.module.css';
 import { reducer } from '../../reducers';
 import { createState } from '../../state';
@@ -22,6 +22,16 @@ export const App = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
     const [showIntro, setShowIntro] = useState(state.day === 1 && !state.answer);
 
+    const [lastTier, setLastTier] = useState<string | undefined>(undefined);
+    const [showTierPopup, setShowTierPopup] = useState(false);
+
+    useEffect(() => {
+      if (state.tier && state.tier !== lastTier) {
+        setLastTier(state.tier);
+        setShowTierPopup(true);
+      }
+    }, [state.tier]);
+
     if (localStorage) {
         localStorage.setItem('reigns', JSON.stringify(state));
     }
@@ -40,7 +50,7 @@ export const App = () => {
               <div className={styles.introOverlay}>
                 <details className={styles.description} open>
                   <summary style={{ display: 'none' }} />
-                  <div style={{ height: '100vh', overflowY: 'auto' }}>
+                  <div style={{ height: '50vh', overflowY: 'auto' }}>
                     <p><strong>Welcome to <em>Command &amp; Courier: Lead Edition</em></strong></p>
                     <p>You’re the freshly minted <strong>Lead</strong> for Delivery Hero’s Deliveries tribe...</p>
                     <ul>
@@ -66,13 +76,24 @@ export const App = () => {
                     </button>
                   </div>
                 ) : (
-                  <button className={styles.closeButton} onClick={() => setShowIntro(false)}>Let's go!</button>
+                    <button className={styles.closeButton} onClick={() => setShowIntro(false)}>Let's go!</button>
                 )}
               </div>
             ) : (
-              state.lose === false && <CardComponent card={card} dispatch={dispatch} />
+              state.lose === false && !showTierPopup && <CardComponent card={card} dispatch={dispatch} />
             )}
 
+            {showTierPopup && (
+              <div className={styles.tierPopupOverlay}>
+                <div className={styles.tierPopupContent}>
+                  <h2>🎉 New Tier Unlocked!</h2>
+                  <h1>{state.tier}</h1>
+                  <p>You’ve reached a new milestone in your leadership journey.</p>
+                  <button className={styles.tierCloseButton} onClick={() => setShowTierPopup(false)}>Continue</button>
+                </div>
+              </div>
+            )}
+            
             <div className={styles.days}>
                 <div className={styles.dayCounter}>{state.day}</div>
                 <div>day</div>

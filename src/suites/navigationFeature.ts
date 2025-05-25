@@ -18,9 +18,10 @@ export const navigationFeature: Suite = {
     yes: {
       description: 'Launch navigation!',
       scores: {
-        budget: -20,
+        budget: -11,
         riderHappiness: -10,
         appQuality: -5,
+        deliveryTime: 5,
       },
       nextCard: {
         skipSteps: 0,
@@ -30,7 +31,7 @@ export const navigationFeature: Suite = {
         yes: {
           description: 'Allocate extra team and budget',
           scores: {
-            budget: -15,
+            budget: -10,
             riderHappiness: +5,
             appQuality: +10,
             deliveryTime: +5,
@@ -52,26 +53,26 @@ export const navigationFeature: Suite = {
       scores: {
         deliveryTime: -5,
       },
-      nextCard: {
-        skipSteps: 0,
-        character: 'Alex, Engineering Manager',
-        description:
-          'Mid‑term, our nav SDK vendor hikes prices. Switch provider?',
-        yes: {
-          description: 'Migrate to new provider',
-          scores: {
-            budget: -10,
-            appQuality: -5,
-            riderHappiness: -5,
-          },
-        },
-        no: {
-          description: 'Stick with expensive vendor',
-          scores: {
-            budget: -20,
-          },
-        },
-      },
+      // nextCard: {
+      //   skipSteps: 0,
+      //   character: 'Alex, Engineering Manager',
+      //   description:
+      //     'Mid‑term, our map SDK vendor hikes prices. Switch provider?',
+      //   yes: {
+      //     description: 'Migrate to new provider',
+      //     scores: {
+      //       budget: -10,
+      //       appQuality: -5,
+      //       riderHappiness: -5,
+      //     },
+      //   },
+      //   no: {
+      //     description: 'Stick with expensive vendor',
+      //     scores: {
+      //       budget: -20,
+      //     },
+      //   },
+      // },
     },
   },
 };
